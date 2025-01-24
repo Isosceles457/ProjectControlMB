@@ -1,4 +1,3 @@
-/* Variables de colores */
 :root {
     --azul-oscuro: #155d86;
     --azul-grisaceo: #27394d;
@@ -35,9 +34,12 @@ header {
     top: 0;
     width: 100%;
     z-index: 1000;
-}.tv{
+}
+
+.tv {
     color: var(--naranja-claro);
 }
+
 /* Logo */
 .logo {
     font-size: 36px;
@@ -216,7 +218,6 @@ nav ul li a:hover i {
     padding: 60px 20px;
     text-align: center;
     width: 100%;
-
 }
 
 #servicios h2 {
@@ -304,7 +305,7 @@ form input {
     transition: border-color 0.3s ease;
 }
 
-form input:focut:focus {
+form input:focus {
     border-color: var(--naranja-claro);
     outline: none;
 }
@@ -570,4 +571,101 @@ footer .whatsapp {
 .logomain img {
     width: 100%;
     height: 100%;
+}
+
+/* Estilos responsivos adicionales */
+@media (max-width: 768px) {
+    .hero {
+        padding: 80px 20px;
+        height: auto;
+    }
+
+    .hero h1 {
+        font-size: 2em;
+    }
+
+    .hero p {
+        font-size: 1em;
+    }
+
+    .hero .btn {
+        padding: 12px 24px;
+        font-size: 1em;
+    }
+
+    #nosotros {
+        padding: 20px 10px;
+    }
+
+    #nosotros h2 {
+        font-size: 2em;
+    }
+
+    #nosotros .about-content {
+        font-size: 1em;
+    }
+
+    #nosotros .valores-lista {
+        grid-template-columns: 1fr;
+    }
+
+    #servicios {
+        padding: 40px 10px;
+    }
+
+    #servicios h2 {
+        font-size: 2em;
+    }
+
+    .servicios-lista {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .servicio-item {
+        max-width: 100%;
+    }
+
+    #contacto {
+        padding: 40px 10px;
+    }
+
+    #contacto h2 {
+        font-size: 2em;
+    }
+
+    .historia-contenido {
+        padding: 20px;
+    }
+
+    #historia h2 {
+        font-size: 2em;
+    }
+
+    #historia p {
+        font-size: 1em;
+    }
+
+    #estructura {
+        padding: 40px 10px;
+    }
+
+    #estructura h2 {
+        font-size: 2em;
+    }
+
+    #estructura ul li {
+        font-size: 1em;
+        margin: 10px 20px;
+    }
+
+    .tarjeta {
+        height: auto;
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .contenedorBotones {
+        width: 100%;
+    }
 }
