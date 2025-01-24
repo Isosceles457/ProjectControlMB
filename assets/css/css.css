@@ -97,10 +97,15 @@ nav ul li a:hover i {
     header {
         flex-direction: column;
         text-align: center;
+        justify-content: center;
+        position:relative;
     }
 
     nav ul {
-        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
     }
 
     nav ul li {
@@ -578,6 +583,8 @@ footer .whatsapp {
     .hero {
         padding: 80px 20px;
         height: auto;
+        flex-direction: column;
+        gap: 20px;
     }
 
     .hero h1 {
@@ -668,4 +675,19 @@ footer .whatsapp {
     .contenedorBotones {
         width: 100%;
     }
+}/* Estilos para imágenes responsivas */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Ajustes específicos para la clase logomain */
+.logomain {
+    width: 100%;
+    height: auto;
+}
+
+.logomain img {
+    width: 100%;
+    height: auto;
 }
