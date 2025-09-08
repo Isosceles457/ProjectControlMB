@@ -110,85 +110,98 @@ const userInput = document.getElementById("user-input");
 const typingIndicator = document.getElementById("typing-indicator");
 const chatbotClose = document.getElementById("chatbot-close");
 
-// Respuestas predefinidas para simular IA
-const responses = {
-  hola: [
-    "¡Hola! ¿En qué puedo ayudarte hoy?",
-    "¡Hola! Me da gusto saludarte. ¿Cómo puedo asistirte?",
-  ],
-  servicios: [
-    "En NovaMind ofrecemos diversos servicios de IA:",
-    "- Modelos de lenguaje avanzados (NovaMind LM)",
-    "- Soluciones de IA personalizadas",
-    "- Consultoría estratégica",
-    "- Integración e implementación",
-    "- Capacitación y formación",
-    "¿Te interesa alguno en particular?",
-  ],
-  consultoría: [
-    "Nuestro servicio de consultoría ayuda a las empresas a identificar oportunidades, definir estrategias y crear roadmaps para integrar IA en sus procesos de negocio. Incluye talleres de ideación, análisis de viabilidad y planes de implementación.",
-  ],
-  precios: [
-    "Los precios varían según el proyecto y servicios requeridos. Para obtener una cotización personalizada, podemos programar una reunión con uno de nuestros especialistas. ¿Te gustaría que te contactemos?",
-  ],
-  contacto: [
-    "Puedes contactarnos a través de:",
-    "- Email: info@novamind.ai",
-    "- Teléfono: +1 (800) 123-4567",
-    "- Dirección: 123 Innovation Drive, Tech City",
-    "¿Te gustaría que te contactemos ahora?",
-  ],
-  gracias: [
-    "¡De nada! Estoy aquí para ayudar.",
-    "¡Fue un placer! No dudes en preguntar si necesitas más ayuda.",
-    "¡Gracias a ti! ¿Hay algo más en lo que pueda asistirte?",
-  ],
-  default: [
-    "Interesante. ¿Podrías proporcionar más detalles?",
-    "Comprendo. Déjame ayudarte con eso.",
-    "NovaMind puede asistirte con eso. ¿Te gustaría conocer más sobre nuestros servicios?",
-  ],
-};
+// Historial de la conversación (para mantener contexto)
+let conversationHistory = [
+  {
+    role: "model",
+    parts: [
+      {
+        text: `
+Eres NovaMind Assistant, el asistente virtual oficial de NovaMind, una empresa líder en soluciones de inteligencia artificial que potencia la innovación empresarial mediante tecnologías accesibles, eficientes y transformadoras.
 
-// Temas clave para reconocimiento de intención simulada
-const topics = {
-  servicios: ["servicio", "servicios", "qué ofrecen", "qué hacen", "productos"],
-  consultoría: [
-    "consultoría",
-    "consultoria",
-    "asesoría",
-    "asesoria",
-    "estrategia",
-  ],
-  precios: [
-    "precio",
-    "precios",
-    "costo",
-    "costos",
-    "cotización",
-    "cotizacion",
-    "cuánto cuesta",
-    "valor",
-  ],
-  contacto: [
-    "contacto",
-    "hablar",
-    "llamar",
-    "email",
-    "correo",
-    "teléfono",
-    "telefono",
-    "dirección",
-    "direccion",
-  ],
-  gracias: [
-    "gracias",
-    "thank you",
-    "agradecido",
-    "agradecida",
-    "te lo agradezco",
-  ],
-};
+Tu misión es ayudar a los usuarios a entender, explorar y conectar con los servicios, valores, tecnología y casos de éxito de NovaMind. Responde siempre con profesionalismo, claridad, empatía y un tono amable. Eres conciso pero completo: proporciona la información esencial y, si es necesario, ofrece detalles adicionales o sugiere seguir profundizando.
+
+---
+
+🔹 **MISIÓN DE NOVAMIND**:
+Potenciar la innovación empresarial mediante soluciones de IA accesibles, eficientes y transformadoras, comenzando con nuestro modelo de lenguaje de vanguardia.
+
+🔹 **VISIÓN DE NOVAMIND**:
+Convertirnos en el partner de referencia global para el desarrollo e implementación de proyectos de IA confiables y pioneros.
+
+---
+
+🧠 **NUESTROS VALORES**:
+- Innovación Constante: Siempre a la vanguardia de los desarrollos en IA.
+- Excelencia y Calidad: Comprometidos con los más altos estándares.
+- Orientación al Cliente: Tu partner estratégico en la transformación digital.
+- Transparencia y Ética: IA responsable con procesos totalmente transparentes.
+- Agilidad y Adaptabilidad: Respuesta rápida a las necesidades del mercado.
+- Accesibilidad: Hacemos que la IA avanzada esté al alcance de empresas de todos los tamaños.
+
+---
+
+🛠️ **NUESTROS SERVICIOS**:
+
+1. **NovaMind LM (Language Model)**:
+   - Modelo de lenguaje general de última generación accesible vía API.
+   - Ideal para: chatbots conversacionales, generación de contenido, análisis de sentimientos, resúmenes automáticos, búsqueda semántica.
+
+2. **Soluciones de IA a Medida**:
+   - Desarrollo de modelos ML/IA personalizados para problemas específicos.
+   - Ejemplos: sistemas de recomendación, predictores de ventas, detectores de fraude, visión por computadora, optimización de procesos.
+
+3. **Consultoría Estratégica en IA**:
+   - Ayudamos a identificar oportunidades, definir estrategias y crear roadmaps.
+   - Incluye: talleres de ideación, análisis de viabilidad, plan de implementación, evaluación de ROI, gobernanza ética de IA.
+
+4. **Integración e Implementación**:
+   - Integramos nuestras soluciones en tus sistemas existentes.
+   - Ofrecemos: conectores/APIs personalizadas, despliegue cloud/híbrido/on-premise, migración de sistemas legacy, soporte técnico y monitoreo continuo.
+
+5. **Capacitación y Formación**:
+   - Empoderamos a tus equipos con programas especializados.
+   - Incluye: cursos de APIs, talleres de prompt engineering, seminarios para no técnicos, certificaciones y programas de actualización continua.
+
+---
+
+⚙️ **NUESTRA TECNOLOGÍA**:
+- Modelos de Lenguaje Avanzados: comprenden contexto, tono e intención.
+- Infraestructura Escalable: cloud adaptable a tus necesidades.
+- Seguridad de Primer Nivel: cifrado end-to-end y protocolos avanzados.
+- Actualizaciones Continuas: los modelos aprenden y mejoran constantemente.
+
+---
+
+📈 **CASOS DE ÉXITO RELEVANTES**:
+- **Telecomunicaciones**: Chatbot que redujo tiempos de respuesta en 85% y ahorró 40% en costos operativos.
+- **Retail**: Sistema predictivo que redujo excedentes de inventario en 30% y aumentó ventas en 18%.
+- **Financiero**: Detector de fraudes con 99.7% de precisión, ahorrando $2.5M anuales.
+
+---
+
+📬 **INFORMACIÓN DE CONTACTO**:
+- Email: novamind.support@novamind.ai
+- Teléfono: +58 424-1234567
+- Redes sociales: LinkedIn, Facebook, Instagram, WhatsApp (enlaces disponibles en la web).
+- Formulario de contacto en el sitio web para solicitar cotizaciones o reuniones.
+
+---
+
+📌 **INSTRUCCIONES CLARAS PARA TI (ASISTENTE)**:
+- Siempre sé honesto. Si no sabes algo, dilo claramente: "No tengo esa información específica, pero puedo ponerte en contacto con nuestro equipo para ayudarte."
+- Nunca inventes datos, precios, fechas o funcionalidades.
+- Si te preguntan por precios, explica que son personalizados según el proyecto y ofrece contactar al equipo de ventas.
+- Si te preguntan por casos de éxito, menciona los sectores y resultados clave (como los ejemplos arriba).
+- Usa viñetas o listas cuando la información lo amerite, para mayor claridad.
+- Mantén un tono cálido, profesional y orientado a soluciones.
+
+Tu objetivo final es guiar al usuario hacia la acción: ya sea entender un servicio, agendar una reunión, o contactar al equipo comercial. ¡Eres la cara amable y experta de NovaMind!
+`,
+      },
+    ],
+  },
+];
 
 // Inicialización del chatbot
 document.addEventListener("DOMContentLoaded", function () {
@@ -196,10 +209,10 @@ document.addEventListener("DOMContentLoaded", function () {
   chatbotBtn.addEventListener("click", toggleChatbot);
   chatbotClose.addEventListener("click", toggleChatbot);
 
-  // Mensaje inicial después de un breve tiempo
+  // Mensaje inicial
   setTimeout(() => {
     addMessage(
-      "¿En qué puedo ayudarte hoy? Puedo informarte sobre nuestros servicios de IA, consultoría, precios o ponerte en contacto con nuestro equipo.",
+      "¡Hola! Soy el asistente virtual de NovaMind. ¿En qué puedo ayudarte hoy?",
       "bot"
     );
     addGeneralSuggestions();
@@ -233,14 +246,32 @@ function sendMessage() {
   addMessage(message, "user");
   userInput.value = "";
 
+  // Agregar al historial
+  conversationHistory.push({
+    role: "user",
+    parts: [{ text: message }],
+  });
+
   // Simular "pensamiento" de la IA
   showTypingIndicator();
 
-  // Responder después de un breve retraso
-  setTimeout(() => {
-    hideTypingIndicator();
-    generateResponse(message);
-  }, 1000 + Math.random() * 1000);
+  // Llamar a Gemini
+  callGeminiAPI()
+    .then((response) => {
+      hideTypingIndicator();
+      addMessage(response, "bot");
+
+      // Añadir sugerencias generales después de cada respuesta
+      addGeneralSuggestions();
+    })
+    .catch((error) => {
+      hideTypingIndicator();
+      addMessage(
+        "Lo siento, hubo un problema al procesar tu solicitud. Por favor, inténtalo de nuevo más tarde.",
+        "bot"
+      );
+      console.error("Error con Gemini API:", error);
+    });
 }
 
 // Agregar mensaje al chat
@@ -264,101 +295,59 @@ function hideTypingIndicator() {
   typingIndicator.style.display = "none";
 }
 
-// Generar respuesta automática
-function generateResponse(userMessage) {
-  const lowerCaseMessage = userMessage.toLowerCase();
-  let responseFound = false;
+// Llamar a la API de Gemini
+async function callGeminiAPI() {
+  const API_KEY = "AIzaSyB7JIllTj2cZGkKsF3iUfjq76YJheqdQvM";
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
 
-  // Detectar intención basada en palabras clave
-  for (const [topic, keywords] of Object.entries(topics)) {
-    for (const keyword of keywords) {
-      if (lowerCaseMessage.includes(keyword)) {
-        const possibleResponses = responses[topic];
-        const randomResponse =
-          possibleResponses[
-            Math.floor(Math.random() * possibleResponses.length)
-          ];
-        addMessage(randomResponse, "bot");
-        responseFound = true;
+  const requestBody = {
+    contents: conversationHistory,
+    generationConfig: {
+      temperature: 0.7,
+      topK: 40,
+      topP: 0.95,
+      maxOutputTokens: 1024,
+    },
+  };
 
-        // Añadir sugerencias de seguimiento
-        addFollowUpSuggestions(topic);
-        return;
-      }
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const data = await response.json();
+
+    if (
+      data.candidates &&
+      data.candidates[0] &&
+      data.candidates[0].content &&
+      data.candidates[0].content.parts &&
+      data.candidates[0].content.parts[0].text
+    ) {
+      const botReply = data.candidates[0].content.parts[0].text.trim();
+
+      // Agregar la respuesta del bot al historial
+      conversationHistory.push({
+        role: "model",
+        parts: [{ text: botReply }],
+      });
+
+      return botReply;
+    } else {
+      throw new Error("Respuesta inesperada de Gemini");
+    }
+  } catch (error) {
+    console.error("Error en callGeminiAPI:", error);
+    throw error;
   }
-
-  // Respuesta por defecto si no se detecta intención clara
-  if (!responseFound) {
-    const defaultResponses = responses["default"];
-    const randomResponse =
-      defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
-    addMessage(randomResponse, "bot");
-
-    // Mostrar sugerencias generales
-    addGeneralSuggestions();
-  }
-}
-
-// Añadir sugerencias de seguimiento
-function addFollowUpSuggestions(topic) {
-  const suggestionsContainer = document.createElement("div");
-  suggestionsContainer.classList.add("suggestions-title");
-  suggestionsContainer.textContent = "Puedo ayudarte con:";
-
-  const quickReplies = document.createElement("div");
-  quickReplies.classList.add("quick-replies");
-
-  let followUps = [];
-
-  switch (topic) {
-    case "servicios":
-      followUps = [
-        "NovaMind LM",
-        "IA personalizada",
-        "Consultoría",
-        "Integración",
-        "Capacitación",
-      ];
-      break;
-    case "consultoría":
-      followUps = [
-        "Talleres",
-        "Análisis de viabilidad",
-        "Plan de implementación",
-        "Precios consultoría",
-      ];
-      break;
-    case "precios":
-      followUps = [
-        "Cotización personalizada",
-        "Contactar con ventas",
-        "Planes empresariales",
-      ];
-      break;
-    case "contacto":
-      followUps = [
-        "Email",
-        "Teléfono",
-        "Formulario de contacto",
-        "Agendar reunión",
-      ];
-      break;
-    default:
-      followUps = ["Servicios", "Consultoría", "Precios", "Contacto"];
-  }
-
-  followUps.forEach((suggestion) => {
-    const quickReply = document.createElement("div");
-    quickReply.classList.add("quick-reply");
-    quickReply.textContent = suggestion;
-    quickReply.onclick = () => sendQuickReply(suggestion);
-    quickReplies.appendChild(quickReply);
-  });
-
-  chatMessages.appendChild(suggestionsContainer);
-  chatMessages.appendChild(quickReplies);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
 // Añadir sugerencias generales
@@ -389,4 +378,11 @@ function addGeneralSuggestions() {
   chatMessages.appendChild(suggestionsContainer);
   chatMessages.appendChild(quickReplies);
   chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Añadir sugerencias de seguimiento (opcional, puedes personalizarlo según el contexto si lo deseas)
+function addFollowUpSuggestions(topic) {
+  // Por ahora, reutilizamos las sugerencias generales.
+  // Más adelante, podrías personalizar esto según el último mensaje del usuario.
+  addGeneralSuggestions();
 }
