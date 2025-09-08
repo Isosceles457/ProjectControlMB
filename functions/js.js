@@ -1,37 +1,392 @@
+// Menu toggle functionality
+const menuToggle = document.querySelector(".menu-toggle");
+const nav = document.querySelector("nav ul");
 
-        document.addEventListener("DOMContentLoaded", function () {
-            mostrarAlertaCookies();
-        });
+menuToggle.addEventListener("click", () => {
+  nav.classList.toggle("active");
+});
 
-        function mostrarAlertaCookies() {
-            // Crear el contenedor de la alerta
-            const alerta = document.createElement('div');
-            alerta.classList.add('tarjeta');
-            alerta.innerHTML = `
-        <svg version="1.1" id="cookieSvg" x="0px" y="0px" viewBox="0 0 122.88 122.25" xml:space="preserve">
-            <g>
-                <path d="M101.77,49.38c2.09,3.1,4.37,5.11,6.86,5.78c2.45,0.66,5.32,0.06,8.7-2.01c1.36-0.84,3.14-0.41,3.97,0.95c0.28,0.46,0.42,0.96,0.43,1.47c0.13,1.4,0.21,2.82,0.24,4.26c0.03,1.46,0.02,2.91-0.05,4.35h0v0c0,0.13-0.01,0.26-0.03,0.38c-0.91,16.72-8.47,31.51-20,41.93c-11.55,10.44-27.06,16.49-43.82,15.69v0.01h0c-0.13,0-0.26-0.01-0.38-0.03c-16.72-0.91-31.51-8.47-41.93-20C5.31,90.61-0.73,75.1,0.07,58.34H0.07v0c0-0.13,0.01-0.26,0.03-0.38C1,41.22,8.81,26.35,20.57,15.87C32.34,5.37,48.09-0.73,64.85,0.07V0.07h0c1.6,0,2.89,1.29,2.89,2.89c0,0.4-0.08,0.78-0.23,1.12c-1.17,3.81-1.25,7.34-0.27,10.14c0.89,2.54,2.7,4.51,5.41,5.52c1.44,0.54,2.2,2.1,1.74,3.55l0.01,0c-1.83,5.89-1.87,11.08-0.52,15.26c0.82,2.53,2.14,4.69,3.88,6.4c1.74,1.72,3.9,3,6.39,3.78c4.04,1.26,8.94,1.18,14.31-0.55C99.73,47.78,101.08,48.3,101.77,49.38L101.77,49.38z M59.28,57.86c2.77,0,5.01,2.24,5.01,5.01c0,2.77-2.24,5.01-5.01,5.01c-2.77,0-5.01-2.24-5.01-5.01C54.27,60.1,56.52,57.86,59.28,57.86L59.28,57.86z M37.56,78.49c3.37,0,6.11,2.73,6.11,6.11s-2.73,6.11-6.11,6.11s-6.11-2.73-6.11-6.11S34.18,78.49,37.56,78.49L37.56,78.49z M50.72,31.75c2.65,0,4.79,2.14,4.79,4.79c0,2.65-2.14,4.79-4.79,4.79c-2.65,0-4.79-2.14-4.79-4.79C45.93,33.89,48.08,31.75,50.72,31.75L50.72,31.75z M119.3,32.4c1.98,0,3.58,1.6,3.58,3.58c0,1.98-1.6,3.58-3.58,3.58s-3.58-1.6-3.58-3.58C115.71,34.01,117.32,32.4,119.3,32.4L119.3,32.4z M93.62,22.91c2.98,0,5.39,2.41,5.39,5.39c0,2.98-2.41,5.39-5.39,5.39c-2.98,0-5.39-2.41-5.39-5.39C88.23,25.33,90.64,22.91,93.62,22.91L93.62,22.91z M97.79,0.59c3.19,0,5.78,2.59,5.78,5.78c0,3.19-2.59,5.78-5.78,5.78c-3.19,0-5.78-2.59-5.78-5.78C92.02,3.17,94.6,0.59,97.79,0.59L97.79,0.59z M76.73,80.63c4.43,0,8.03,3.59,8.03,8.03c0,4.43-3.59,8.03-8.03,8.03s-8.03-3.59-8.03-8.03C68.7,84.22,72.29,80.63,76.73,80.63L76.73,80.63z M31.91,46.78c4.8,0,8.69,3.89,8.69,8.69c0,4.8-3.89,8.69-8.69,8.69s-8.69-3.89-8.69-8.69C23.22,50.68,27.11,46.78,31.91,46.78L31.91,46.78z M107.13,60.74c-3.39-0.91-6.35-3.14-8.95-6.48c-5.78,1.52-11.16,1.41-15.76-0.02c-3.37-1.05-6.32-2.81-8.71-5.18c-2.39-2.37-4.21-5.32-5.32-8.75c-1.51-4.66-1.69-10.2-0.18-16.32c-3.1-1.8-5.25-4.53-6.42-7.88c-1.06-3.05-1.28-6.59-0.61-10.35C47.27,5.95,34.3,11.36,24.41,20.18C13.74,29.69,6.66,43.15,5.84,58.29l0,0.05v0h0l-0.01,0.13v0C5.07,73.72,10.55,87.82,20.02,98.3c9.44,10.44,22.84,17.29,38,18.1l0.05,0h0v0l0.13,0.01h0c15.24,0.77,29.35-4.71,39.83-14.19c10.44-9.44,17.29-22.84,18.1-38l0-0.05v0h0l0.01-0.13v0c0.07-1.34,0.09-2.64,0.06-3.91C112.98,61.34,109.96,61.51,107.13,60.74L107.13,60.74z M116.15,64.04L116.15,64.04L116.15,64.04L116.15,64.04z M58.21,116.42L58.21,116.42L58.21,116.42L58.21,116.42z"></path>
-            </g>
-        </svg>
-        <p class="cookieEncabezado">Usamos cookies.</p>
-        <p class="cookieDescripcion">Este sitio web usa cookies para garantizar que obtienes la mejor experiencia en nuestro sitio.</p>
-        <div class="contenedorBotones">
-            <button class="aceptarBoton">Permitir</button>
-            <button class="rechazarBoton">Rechazar</button>
-        </div>
-    `;
-            document.querySelector('body').appendChild(alerta);
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
 
-            document.querySelector('.aceptarBoton').addEventListener('click', function () {
-                alerta.style.opacity = '0';
-                setTimeout(function () {
-                    alerta.style.display = 'none';
-                }, 1000);
-            });
-            document.querySelector('.rechazarBoton').addEventListener('click', function () {
-                alerta.style.opacity = '0';
-                setTimeout(function () {
-                    alerta.style.display = 'none';
-                }, 1000);
-            });
-        }
+    const targetId = this.getAttribute("href");
+    if (targetId === "#") return;
+
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      // Close mobile menu if open
+      nav.classList.remove("active");
+
+      window.scrollTo({
+        top: targetElement.offsetTop - 70,
+        behavior: "smooth",
+      });
+    }
+  });
+});
+
+// Form submission handling
+const contactForm = document.getElementById("contact-form");
+if (contactForm) {
+  contactForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Basic form validation
+    const nombre = document.getElementById("nombre").value;
+    const email = document.getElementById("email").value;
+    const empresa = document.getElementById("empresa").value;
+    const servicio = document.getElementById("servicio-interes").value;
+    const mensaje = document.getElementById("mensaje").value;
+
+    if (!nombre || !email || !empresa || !servicio || !mensaje) {
+      alert("Por favor, complete todos los campos obligatorios.");
+      return;
+    }
+
+    // Simulate form submission
+    alert(
+      "¡Gracias por su mensaje! Nos pondremos en contacto con usted pronto."
+    );
+    contactForm.reset();
+  });
+}
+
+// Newsletter form handling
+const newsletterForm = document.querySelector(".newsletter-form");
+if (newsletterForm) {
+  newsletterForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const emailInput = this.querySelector('input[type="email"]');
+    if (!emailInput.value) {
+      alert("Por favor, introduzca su dirección de correo electrónico.");
+      return;
+    }
+
+    // Simulate subscription
+    alert("¡Gracias por suscribirse a nuestro newsletter!");
+    emailInput.value = "";
+  });
+}
+
+// Animation on scroll
+function animateOnScroll() {
+  const elements = document.querySelectorAll(
+    ".card, .valor-item, .tech-card, .caso-card"
+  );
+
+  elements.forEach((element) => {
+    const elementPosition = element.getBoundingClientRect().top;
+    const screenPosition = window.innerHeight / 1.3;
+
+    if (elementPosition < screenPosition) {
+      element.style.opacity = 1;
+      element.style.transform = "translateY(0)";
+    }
+  });
+}
+
+// Initialize elements for animation
+document
+  .querySelectorAll(".card, .valor-item, .tech-card, .caso-card")
+  .forEach((element) => {
+    element.style.opacity = 0;
+    element.style.transform = "translateY(20px)";
+    element.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+  });
+
+// Listen for scroll events
+window.addEventListener("scroll", animateOnScroll);
+// Initial check on page load
+window.addEventListener("load", animateOnScroll);
+
+// Variables globales
+const chatbotBtn = document.getElementById("chatbot-btn");
+const chatbotContainer = document.getElementById("chatbot-container");
+const chatMessages = document.getElementById("chat-messages");
+const userInput = document.getElementById("user-input");
+const typingIndicator = document.getElementById("typing-indicator");
+const chatbotClose = document.getElementById("chatbot-close");
+
+// Respuestas predefinidas para simular IA
+const responses = {
+  hola: [
+    "¡Hola! ¿En qué puedo ayudarte hoy?",
+    "¡Hola! Me da gusto saludarte. ¿Cómo puedo asistirte?",
+  ],
+  servicios: [
+    "En NovaMind ofrecemos diversos servicios de IA:",
+    "- Modelos de lenguaje avanzados (NovaMind LM)",
+    "- Soluciones de IA personalizadas",
+    "- Consultoría estratégica",
+    "- Integración e implementación",
+    "- Capacitación y formación",
+    "¿Te interesa alguno en particular?",
+  ],
+  consultoría: [
+    "Nuestro servicio de consultoría ayuda a las empresas a identificar oportunidades, definir estrategias y crear roadmaps para integrar IA en sus procesos de negocio. Incluye talleres de ideación, análisis de viabilidad y planes de implementación.",
+  ],
+  precios: [
+    "Los precios varían según el proyecto y servicios requeridos. Para obtener una cotización personalizada, podemos programar una reunión con uno de nuestros especialistas. ¿Te gustaría que te contactemos?",
+  ],
+  contacto: [
+    "Puedes contactarnos a través de:",
+    "- Email: info@novamind.ai",
+    "- Teléfono: +1 (800) 123-4567",
+    "- Dirección: 123 Innovation Drive, Tech City",
+    "¿Te gustaría que te contactemos ahora?",
+  ],
+  gracias: [
+    "¡De nada! Estoy aquí para ayudar.",
+    "¡Fue un placer! No dudes en preguntar si necesitas más ayuda.",
+    "¡Gracias a ti! ¿Hay algo más en lo que pueda asistirte?",
+  ],
+  default: [
+    "Interesante. ¿Podrías proporcionar más detalles?",
+    "Comprendo. Déjame ayudarte con eso.",
+    "NovaMind puede asistirte con eso. ¿Te gustaría conocer más sobre nuestros servicios?",
+  ],
+};
+
+// Temas clave para reconocimiento de intención simulada
+const topics = {
+  servicios: ["servicio", "servicios", "qué ofrecen", "qué hacen", "productos"],
+  consultoría: [
+    "consultoría",
+    "consultoria",
+    "asesoría",
+    "asesoria",
+    "estrategia",
+  ],
+  precios: [
+    "precio",
+    "precios",
+    "costo",
+    "costos",
+    "cotización",
+    "cotizacion",
+    "cuánto cuesta",
+    "valor",
+  ],
+  contacto: [
+    "contacto",
+    "hablar",
+    "llamar",
+    "email",
+    "correo",
+    "teléfono",
+    "telefono",
+    "dirección",
+    "direccion",
+  ],
+  gracias: [
+    "gracias",
+    "thank you",
+    "agradecido",
+    "agradecida",
+    "te lo agradezco",
+  ],
+};
+
+// Inicialización del chatbot
+document.addEventListener("DOMContentLoaded", function () {
+  // Event listeners
+  chatbotBtn.addEventListener("click", toggleChatbot);
+  chatbotClose.addEventListener("click", toggleChatbot);
+
+  // Mensaje inicial después de un breve tiempo
+  setTimeout(() => {
+    addMessage(
+      "¿En qué puedo ayudarte hoy? Puedo informarte sobre nuestros servicios de IA, consultoría, precios o ponerte en contacto con nuestro equipo.",
+      "bot"
+    );
+    addGeneralSuggestions();
+  }, 1500);
+});
+
+// Alternar visibilidad del chatbot
+function toggleChatbot() {
+  chatbotContainer.classList.toggle("active");
+}
+
+// Manejar tecla Enter en el input
+function handleKeyPress(event) {
+  if (event.key === "Enter") {
+    sendMessage();
+  }
+}
+
+// Enviar respuesta rápida
+function sendQuickReply(text) {
+  userInput.value = text;
+  sendMessage();
+}
+
+// Enviar mensaje
+function sendMessage() {
+  const message = userInput.value.trim();
+  if (message === "") return;
+
+  // Agregar mensaje del usuario al chat
+  addMessage(message, "user");
+  userInput.value = "";
+
+  // Simular "pensamiento" de la IA
+  showTypingIndicator();
+
+  // Responder después de un breve retraso
+  setTimeout(() => {
+    hideTypingIndicator();
+    generateResponse(message);
+  }, 1000 + Math.random() * 1000);
+}
+
+// Agregar mensaje al chat
+function addMessage(text, sender) {
+  const messageElement = document.createElement("div");
+  messageElement.classList.add("message");
+  messageElement.classList.add(sender + "-message");
+  messageElement.textContent = text;
+  chatMessages.appendChild(messageElement);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Mostrar indicador de escribiendo
+function showTypingIndicator() {
+  typingIndicator.style.display = "flex";
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Ocultar indicador de escribiendo
+function hideTypingIndicator() {
+  typingIndicator.style.display = "none";
+}
+
+// Generar respuesta automática
+function generateResponse(userMessage) {
+  const lowerCaseMessage = userMessage.toLowerCase();
+  let responseFound = false;
+
+  // Detectar intención basada en palabras clave
+  for (const [topic, keywords] of Object.entries(topics)) {
+    for (const keyword of keywords) {
+      if (lowerCaseMessage.includes(keyword)) {
+        const possibleResponses = responses[topic];
+        const randomResponse =
+          possibleResponses[
+            Math.floor(Math.random() * possibleResponses.length)
+          ];
+        addMessage(randomResponse, "bot");
+        responseFound = true;
+
+        // Añadir sugerencias de seguimiento
+        addFollowUpSuggestions(topic);
+        return;
+      }
+    }
+  }
+
+  // Respuesta por defecto si no se detecta intención clara
+  if (!responseFound) {
+    const defaultResponses = responses["default"];
+    const randomResponse =
+      defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+    addMessage(randomResponse, "bot");
+
+    // Mostrar sugerencias generales
+    addGeneralSuggestions();
+  }
+}
+
+// Añadir sugerencias de seguimiento
+function addFollowUpSuggestions(topic) {
+  const suggestionsContainer = document.createElement("div");
+  suggestionsContainer.classList.add("suggestions-title");
+  suggestionsContainer.textContent = "Puedo ayudarte con:";
+
+  const quickReplies = document.createElement("div");
+  quickReplies.classList.add("quick-replies");
+
+  let followUps = [];
+
+  switch (topic) {
+    case "servicios":
+      followUps = [
+        "NovaMind LM",
+        "IA personalizada",
+        "Consultoría",
+        "Integración",
+        "Capacitación",
+      ];
+      break;
+    case "consultoría":
+      followUps = [
+        "Talleres",
+        "Análisis de viabilidad",
+        "Plan de implementación",
+        "Precios consultoría",
+      ];
+      break;
+    case "precios":
+      followUps = [
+        "Cotización personalizada",
+        "Contactar con ventas",
+        "Planes empresariales",
+      ];
+      break;
+    case "contacto":
+      followUps = [
+        "Email",
+        "Teléfono",
+        "Formulario de contacto",
+        "Agendar reunión",
+      ];
+      break;
+    default:
+      followUps = ["Servicios", "Consultoría", "Precios", "Contacto"];
+  }
+
+  followUps.forEach((suggestion) => {
+    const quickReply = document.createElement("div");
+    quickReply.classList.add("quick-reply");
+    quickReply.textContent = suggestion;
+    quickReply.onclick = () => sendQuickReply(suggestion);
+    quickReplies.appendChild(quickReply);
+  });
+
+  chatMessages.appendChild(suggestionsContainer);
+  chatMessages.appendChild(quickReplies);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Añadir sugerencias generales
+function addGeneralSuggestions() {
+  const suggestionsContainer = document.createElement("div");
+  suggestionsContainer.classList.add("suggestions-title");
+  suggestionsContainer.textContent = "También puedes preguntar sobre:";
+
+  const quickReplies = document.createElement("div");
+  quickReplies.classList.add("quick-replies");
+
+  const suggestions = [
+    "Servicios de IA",
+    "Consultoría estratégica",
+    "Precios",
+    "Contacto",
+    "Casos de éxito",
+  ];
+
+  suggestions.forEach((suggestion) => {
+    const quickReply = document.createElement("div");
+    quickReply.classList.add("quick-reply");
+    quickReply.textContent = suggestion;
+    quickReply.onclick = () => sendQuickReply(suggestion);
+    quickReplies.appendChild(quickReply);
+  });
+
+  chatMessages.appendChild(suggestionsContainer);
+  chatMessages.appendChild(quickReplies);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
